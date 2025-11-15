@@ -1,0 +1,35 @@
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECommerceApi", "src\ECommerceApi\ECommerceApi.csproj", "{5DC55AC5-3F42-9DBC-B445-8C52F2920A6D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{9BF795C5-856B-45FF-8B55-9CE0A4B5F7F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECommerceApi.UnitTests", "tests\ECommerceApi.UnitTests\ECommerceApi.UnitTests.csproj", "{1C512A8B-767A-463B-9088-C8C6689EB024}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5DC55AC5-3F42-9DBC-B445-8C52F2920A6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DC55AC5-3F42-9DBC-B445-8C52F2920A6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DC55AC5-3F42-9DBC-B445-8C52F2920A6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DC55AC5-3F42-9DBC-B445-8C52F2920A6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C512A8B-767A-463B-9088-C8C6689EB024}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C512A8B-767A-463B-9088-C8C6689EB024}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C512A8B-767A-463B-9088-C8C6689EB024}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C512A8B-767A-463B-9088-C8C6689EB024}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0B46C655-DF53-43EC-9056-E04CDF4D5774}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1C512A8B-767A-463B-9088-C8C6689EB024} = {9BF795C5-856B-45FF-8B55-9CE0A4B5F7F7}
+	EndGlobalSection
+EndGlobal
