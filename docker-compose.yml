@@ -1,8 +1,36 @@
+version: "3.9"
+
 services:
-  postgres:
+  ecommerce-api:
+    build:
+      context: ./src/ECommerceApi
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+
+      # Database settings
+      DatabaseSettings__Host: db
+      DatabaseSettings__Port: 5432
+      DatabaseSettings__Database: ecommerce_db
+      DatabaseSettings__Username: admin
+      DatabaseSettings__Password: p@ssw0rd
+
+      # JWT settings
+      JwtSettings__Key: "LrlYgVE4qvytoQCr+UpUsy9BspUTDNDAKgLpqsXPJ5w="
+      JwtSettings__Issuer: "http://localhost:5136"
+      JwtSettings__Audience: "http://localhost:5136"
+      JwtSettings__ExpiryMinutes: 15
+
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
     image: postgres:15
-    container_name: ecommerce_db
-    restart: always
+    container_name: ecommerce-db
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: p@ssw0rd
@@ -11,6 +39,11 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin"]
+      interval: 5s
+      retries: 5
+      timeout: 5s
 
 volumes:
   postgres_data:

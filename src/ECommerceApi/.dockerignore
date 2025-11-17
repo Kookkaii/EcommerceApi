@@ -1,0 +1,12 @@
+# Build artifacts
+bin/
+obj/
+
+# IDE / editor files
+.vscode/
+*.user
+*.suo
+*.DS_Store
+
+# Optional: local override
+docker-compose.override.yml
