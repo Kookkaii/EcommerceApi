@@ -1,6 +1,7 @@
 using ECommerceApi.Dtos.Order;
 using ECommerceApi.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Filters;
 
 namespace ECommerceApi.Controllers
 {
@@ -15,6 +16,10 @@ namespace ECommerceApi.Controllers
         }
 
         [HttpPost("checkout")]
+        [ProducesResponseType(typeof(CheckoutResponse), StatusCodes.Status200OK)]
+
+        [ProducesResponseType(typeof(object), StatusCodes.Status400BadRequest)]
+        [SwaggerResponseExample(StatusCodes.Status400BadRequest, typeof(CheckoutBadRequestExamples))]
         public async Task<IActionResult> CheckoutAsync([FromBody] CheckoutRequest request)
         {
             var userId = GetUserId();
@@ -23,6 +28,9 @@ namespace ECommerceApi.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(typeof(OrderHistoryResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(object), StatusCodes.Status400BadRequest)]
+        [SwaggerResponseExample(StatusCodes.Status400BadRequest, typeof(OrderHistoriesBadRequestExample))]
         public async Task<IActionResult> GetOrderHistoriesAsync()
         {
             var userId = GetUserId();

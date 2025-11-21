@@ -1,4 +1,7 @@
+using System.Reflection;
+using ECommerceApi.Swagger.Filters;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.Filters;
 
 namespace ECommerceApi.Helpers.Extensions
 {
@@ -38,8 +41,11 @@ namespace ECommerceApi.Helpers.Extensions
                         new string[] {}
                     }
                 });
-            });
 
+                options.ExampleFilters();
+                options.OperationFilter<SwaggerOperationFilter>();
+            });
+            services.AddSwaggerExamplesFromAssemblies(Assembly.GetExecutingAssembly());
             return services;
         }
     }

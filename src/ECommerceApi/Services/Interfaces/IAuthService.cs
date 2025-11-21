@@ -6,6 +6,6 @@ namespace ECommerceApi.Services.Implementations
     public interface IAuthService
     {
         Task<AuthResponse?> GenerateTokens(LoginRequest request);
-        Task RegisterUser(RegisterRequest request);
+        Task<RegisterResponse> RegisterUser(RegisterRequest request);
     }
 }

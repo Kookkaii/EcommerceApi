@@ -28,7 +28,7 @@ namespace ECommerceApi.Services.Implementations
 
         public async Task<AuthResponse?> GenerateTokens(LoginRequest request)
         {
-            var user = await _userService.GetUserByEmailAndPassword(request.Email, request.Password);
+            var user = await _userService.GetUserByEmailAndPassword(request.Username, request.Password);
             if (user is null)
             {
                 return null;
@@ -63,7 +63,7 @@ namespace ECommerceApi.Services.Implementations
             };
         }
 
-        public async Task RegisterUser(RegisterRequest request)
+        public async Task<RegisterResponse> RegisterUser(RegisterRequest request)
         {
             var userRepo = _unitOfWork.GetRepository<User>();
 
@@ -83,6 +83,12 @@ namespace ECommerceApi.Services.Implementations
 
             await userRepo.AddAsync(user);
             await _unitOfWork.SaveChangesAsync();
+
+            return new RegisterResponse
+            {
+                Username = request.Email,
+                Password = request.Password
+            };
         }
     }
 }

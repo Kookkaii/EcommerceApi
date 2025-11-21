@@ -45,12 +45,12 @@ namespace ECommerceApi.UnitTests.Services
         {
             var loginRequest = _fixture.Create<LoginRequest>();
             var user = _fixture.Build<User>()
-                               .With(u => u.Email, loginRequest.Email)
+                               .With(u => u.Email, loginRequest.Username)
                                .With(u => u.FirstName, "test_first_name")
                                .With(u => u.LastName, "test_last_name")
                                .Create();
 
-            _mockUserService.Setup(s => s.GetUserByEmailAndPassword(loginRequest.Email, loginRequest.Password))
+            _mockUserService.Setup(s => s.GetUserByEmailAndPassword(loginRequest.Username, loginRequest.Password))
                             .ReturnsAsync(user);
 
             var result = await _authService.GenerateTokens(loginRequest);
@@ -59,7 +59,7 @@ namespace ECommerceApi.UnitTests.Services
             result!.AccessToken.ShouldNotBeNullOrEmpty();
             result.ExpiresInMinutes.ShouldBe(15);
 
-            _mockUserService.Verify(s => s.GetUserByEmailAndPassword(loginRequest.Email, loginRequest.Password), Times.Once);
+            _mockUserService.Verify(s => s.GetUserByEmailAndPassword(loginRequest.Username, loginRequest.Password), Times.Once);
         }
 
         [Fact]
@@ -68,7 +68,7 @@ namespace ECommerceApi.UnitTests.Services
             var loginRequest = _fixture.Create<LoginRequest>();
 
             _mockUserService.Setup(s =>
-                s.GetUserByEmailAndPassword(loginRequest.Email, loginRequest.Password))
+                s.GetUserByEmailAndPassword(loginRequest.Username, loginRequest.Password))
                 .ReturnsAsync((User?)null);
 
             // Act
@@ -77,7 +77,7 @@ namespace ECommerceApi.UnitTests.Services
             // Assert
             result.ShouldBeNull();
 
-            _mockUserService.Verify(s => s.GetUserByEmailAndPassword(loginRequest.Email, loginRequest.Password), Times.Once);
+            _mockUserService.Verify(s => s.GetUserByEmailAndPassword(loginRequest.Username, loginRequest.Password), Times.Once);
         }
 
         [Fact]
@@ -90,9 +90,13 @@ namespace ECommerceApi.UnitTests.Services
             var request = _fixture.Create<RegisterRequest>();
 
             // Act
-            await _authService.RegisterUser(request);
+            var result = await _authService.RegisterUser(request);
 
             // Assert
+            result.ShouldNotBeNull();
+            result.Username.ShouldBe(request.Email);
+            result.Password.ShouldBe(request.Password);
+
             _userRepository.Verify(r => r.AddAsync(It.Is<User>(u =>
                 u.Email == request.Email &&
                 u.FirstName == request.FirstName &&
